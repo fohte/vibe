@@ -1,0 +1,24 @@
+{
+  "name": "node-boilerplate",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint .",
+    "format:eslint": "eslint --fix .",
+    "format:prettier": "prettier --write .",
+    "format": "conc -m 1 bun:format:eslint bun:format:prettier",
+    "test": "conc bun:test:type bun:test:unit",
+    "test:type": "tsc --noEmit",
+    "test:unit": "vitest run"
+  },
+  "devDependencies": {
+    "@fohte/eslint-config": "0.0.4",
+    "@tsconfig/bun": "1.0.8",
+    "@types/bun": "1.2.16",
+    "concurrently": "9.1.2",
+    "eslint": "8.57.1",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3",
+    "vitest": "3.2.3"
+  }
+}
