@@ -1,6 +1,10 @@
 # vibe - Node.js Port
 
-A Node.js implementation of the vibe command - a sophisticated wrapper for Claude Code that manages git worktrees and tmux sessions for isolated development environments.
+> [!WARNING] > **開発中 / Under Development**  
+> このプロジェクトは現在開発中です。まだ動作しません。  
+> This project is currently under development and not yet functional.
+
+`vibe` is a sophisticated wrapper for Claude Code that manages git worktrees and tmux sessions for isolated development environments.
 
 ## Overview
 
@@ -152,61 +156,12 @@ src/
 
 ## Requirements
 
-- Node.js 18+ (for native fetch API)
+- Node.js
 - Git
 - Tmux
 - Claude Code CLI (`claude`)
-- GitHub CLI (`gh`) - for PR features
 - `ghq` - for repository management
-
-## Configuration
-
-vibe looks for configuration in these locations (in order):
-
-1. `.vibe.json` in the current repository
-2. `~/.config/vibe/config.json`
-3. Environment variables
-
-### Example Configuration
-
-```json
-{
-  "defaultBranch": "main",
-  "worktreePrefix": ".worktrees",
-  "branchPrefix": "claude",
-  "tmuxSession": "vibe",
-  "ai": {
-    "model": "claude-3-opus-20240229",
-    "maxTokens": 100
-  }
-}
-```
-
-## Differences from Bash Version
-
-### Improvements
-
-- **Better Error Handling**: Proper error types and stack traces
-- **Async/Await**: Modern async patterns instead of callbacks
-- **Type Safety**: Full TypeScript support
-- **Testing**: Comprehensive test suite
-- **Cross-Platform**: Better Windows support (where possible)
-- **Performance**: Parallel operations where applicable
-
-### Compatibility
-
-- Maintains full CLI compatibility with bash version
-- Same directory structure and naming conventions
-- Interoperable with existing vibe sessions
-
-## Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ## License
 
 MIT
-
-## Acknowledgments
-
-This is a Node.js port of the original bash implementation by @fohte.
