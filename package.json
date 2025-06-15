@@ -6,15 +6,14 @@
     "lint": "eslint .",
     "format:eslint": "eslint --fix .",
     "format:prettier": "prettier --write .",
-    "format": "conc -m 1 bun:format:eslint bun:format:prettier",
-    "test": "conc bun:test:type bun:test:unit",
+    "format": "conc -m 1 npm:format:eslint npm:format:prettier",
+    "test": "conc npm:test:type npm:test:unit",
     "test:type": "tsc --noEmit",
     "test:unit": "vitest run"
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
-    "@tsconfig/bun": "1.0.8",
-    "@types/bun": "1.2.16",
+    "@tsconfig/node22": "22.0.0",
     "concurrently": "9.1.2",
     "eslint": "8.57.1",
     "prettier": "3.5.3",
