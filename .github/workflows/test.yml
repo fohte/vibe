@@ -29,12 +29,12 @@ jobs:
           path: |
             ~/.npm
             node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('package.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+            ${{ runner.os }}-npm-${{ hashFiles('package.json') }}
             ${{ runner.os }}-npm-
 
-      - run: npm ci
+      - run: npm install
 
       - name: Cache pre-commit
         uses: actions/cache@v4
@@ -76,12 +76,12 @@ jobs:
           path: |
             ~/.npm
             node_modules
-          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('package.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+            ${{ runner.os }}-npm-${{ hashFiles('package.json') }}
             ${{ runner.os }}-npm-
 
-      - run: npm ci
+      - run: npm install
 
       - name: Run tests
         run: npm run test
