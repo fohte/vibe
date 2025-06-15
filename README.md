@@ -104,23 +104,24 @@ vibe -R dotfiles start bugfix
 - **Chalk**: Terminal output styling
 - **Ora**: Elegant terminal spinners
 - **Inquirer**: Interactive prompts
-- **Node.js Built-ins**: fs/promises, path, os
+- **Neverthrow**: Functional error handling with Result types
+- **Bun**: Fast all-in-one JavaScript runtime and package manager
 
 ### Module Structure
 
 ```
 src/
 ├── cli.ts              # Main CLI entry point
-├── commands/
+├── commands/           # Command implementations (Phase 2)
 │   ├── start.ts        # Start command implementation
 │   ├── done.ts         # Done command implementation
 │   └── list.ts         # List command implementation
-├── lib/
-│   ├── git.ts          # Git operations
-│   ├── tmux.ts         # Tmux session management
-│   ├── claude.ts       # Claude Code integration
-│   └── ai.ts           # AI name generation
-├── utils/
+├── lib/                # Core functionality modules
+│   ├── git.ts          # Git operations with Result types
+│   ├── tmux.ts         # Tmux session management with Result types
+│   ├── claude.ts       # Claude Code integration (Phase 3)
+│   └── ai.ts           # AI name generation (Phase 3)
+├── utils/              # Utility modules (Phase 2)
 │   ├── config.ts       # Configuration management
 │   ├── logger.ts       # Logging utilities
 │   └── errors.ts       # Error handling
@@ -135,16 +136,18 @@ src/
 The core foundation has been implemented with:
 
 - **CLI Framework**: Basic command structure using Commander.js with `start`, `done`, and `list` commands (not yet functional)
-- **Git Module** (`src/lib/git.ts`): Complete implementation for:
+- **Git Module** (`src/lib/git.ts`): Complete implementation with Result types for:
   - Worktree creation and removal
   - Branch management (create, delete, checkout)
   - Status checking and merge verification
   - Listing existing worktrees
-- **Tmux Module** (`src/lib/tmux.ts`): Full tmux integration including:
+  - All operations return `Result<T, GitError>` for type-safe error handling
+- **Tmux Module** (`src/lib/tmux.ts`): Full tmux integration with Result types including:
   - Session and window management
   - Window creation, selection, and removal
   - Detecting current tmux context
   - Sending commands to windows
+  - All operations return `Result<T, TmuxError>` for consistent error handling
 - **Type Definitions** (`src/types/index.ts`): Complete TypeScript interfaces for all components
 - **Build System**: TypeScript compilation configured with proper module resolution
 
