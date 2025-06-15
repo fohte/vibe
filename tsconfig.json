@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/bun/tsconfig.json",
+  "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "./dist",
@@ -7,9 +7,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "module": "ES2022",
+    "module": "ESNext",
     "target": "ES2022",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
