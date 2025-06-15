@@ -56,14 +56,14 @@ vibe is a CLI tool that streamlines working with Claude Code by:
 git clone https://github.com/fohte/vibe
 cd vibe
 
-# Install dependencies (using Bun)
-bun install
+# Install dependencies
+npm install
 
 # Build the TypeScript code
-bun run build
+npm run build
 
 # Link globally (coming in Phase 2)
-# bun link
+# npm link
 ```
 
 > [!NOTE]
@@ -105,7 +105,6 @@ vibe -R dotfiles start bugfix
 - **Ora**: Elegant terminal spinners
 - **Inquirer**: Interactive prompts
 - **Neverthrow**: Functional error handling with Result types
-- **Bun**: Fast all-in-one JavaScript runtime and package manager
 
 ### Module Structure
 
@@ -188,7 +187,7 @@ The project is ready for Phase 2 implementation, which will make the CLI command
 
 ## Requirements
 
-- Bun (or Node.js)
+- Node.js
 - Git
 - Tmux
 - Claude Code CLI (`claude`)

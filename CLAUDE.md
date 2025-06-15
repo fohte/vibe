@@ -7,11 +7,11 @@ This document contains project-specific instructions for Claude Code development
 ### Build & Development
 
 ```bash
-bun run build     # Compile TypeScript to dist/
-bun run dev       # Watch mode for development
-bun run lint      # Run ESLint
-bun run format    # Fix formatting (ESLint + Prettier)
-bun run test      # Run all tests (type + unit)
+npm run build     # Compile TypeScript to dist/
+npm run dev       # Watch mode for development
+npm run lint      # Run ESLint
+npm run format    # Fix formatting (ESLint + Prettier)
+npm run test      # Run all tests (type + unit)
 ```
 
 ### Git operations
@@ -75,9 +75,9 @@ async createWorktree(name: string): Promise<string> {
 
 ## Testing instructions
 
-- Run `bun run test:type` for TypeScript type checking
-- Run `bun run test:unit` for unit tests (Vitest)
-- Always run `bun run lint` before committing
+- Run `npm run test:type` for TypeScript type checking
+- Run `npm run test:unit` for unit tests (Vitest)
+- Always run `npm run lint` before committing
 
 ## Warnings
 
@@ -87,10 +87,10 @@ async createWorktree(name: string): Promise<string> {
 - If commit fails, stage the auto-fixed files and retry
 - Hooks will add newlines at end of files and fix formatting
 
-### Bun vs npm
+### Package management
 
-- Project uses Bun as package manager
-- Use `bun add -E <package>` for exact versions
+- Project uses npm as package manager
+- Use `npm install --save-exact <package>` for exact versions
 - Build outputs to `dist/` directory
 
 ### Current implementation status
