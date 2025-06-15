@@ -1,7 +1,6 @@
 # vibe - Node.js Port
 
-> [!WARNING] > **開発中 / Under Development**  
-> このプロジェクトは現在開発中です。まだ動作しません。  
+> [!WARNING]
 > This project is currently under development and not yet functional.
 
 `vibe` is a sophisticated wrapper for Claude Code that manages git worktrees and tmux sessions for isolated development environments.
