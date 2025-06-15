@@ -1,4 +1,4 @@
-# vibe - Node.js Port
+# vibe
 
 > [!WARNING]
 > This project is currently under development and not yet functional.
