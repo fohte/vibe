@@ -1,4 +1,5 @@
 import { execa } from 'execa'
+import { err, ok, Result } from 'neverthrow'
 
 export class TmuxError extends Error {
   constructor(
@@ -45,12 +46,17 @@ export class Tmux {
     }
   }
 
-  async createSession(sessionName = this.sessionName): Promise<void> {
+  async createSession(
+    sessionName = this.sessionName,
+  ): Promise<Result<void, TmuxError>> {
     try {
       await execa('tmux', ['new-session', '-d', '-s', sessionName])
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to create session: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to create session: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
@@ -59,7 +65,7 @@ export class Tmux {
     windowName: string,
     command?: string,
     sessionName = this.sessionName,
-  ): Promise<void> {
+  ): Promise<Result<void, TmuxError>> {
     const args = ['new-window', '-t', `${sessionName}:`, '-n', windowName]
 
     if (command) {
@@ -68,9 +74,12 @@ export class Tmux {
 
     try {
       await execa('tmux', args)
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to create window: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to create window: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
@@ -78,21 +87,26 @@ export class Tmux {
   async selectWindow(
     windowName: string,
     sessionName = this.sessionName,
-  ): Promise<void> {
+  ): Promise<Result<void, TmuxError>> {
     try {
       await execa('tmux', [
         'select-window',
         '-t',
         `${sessionName}:${windowName}`,
       ])
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to select window: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to select window: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
 
-  async listWindows(sessionName = this.sessionName): Promise<TmuxWindow[]> {
+  async listWindows(
+    sessionName = this.sessionName,
+  ): Promise<Result<TmuxWindow[], TmuxError>> {
     try {
       const { stdout } = await execa('tmux', [
         'list-windows',
@@ -102,7 +116,7 @@ export class Tmux {
         '#{window_id}:#{window_name}:#{window_active}:#{window_panes}',
       ])
 
-      return stdout
+      const windows = stdout
         .split('\n')
         .filter(Boolean)
         .map((line) => {
@@ -114,9 +128,13 @@ export class Tmux {
             panes: parseInt(panes || '0', 10),
           }
         })
+
+      return ok(windows)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to list windows: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to list windows: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
@@ -124,22 +142,30 @@ export class Tmux {
   async killWindow(
     windowName: string,
     sessionName = this.sessionName,
-  ): Promise<void> {
+  ): Promise<Result<void, TmuxError>> {
     try {
       await execa('tmux', ['kill-window', '-t', `${sessionName}:${windowName}`])
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to kill window: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to kill window: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
 
-  async attachSession(sessionName = this.sessionName): Promise<void> {
+  async attachSession(
+    sessionName = this.sessionName,
+  ): Promise<Result<void, TmuxError>> {
     try {
       await execa('tmux', ['attach-session', '-t', sessionName])
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to attach session: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to attach session: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
@@ -148,9 +174,9 @@ export class Tmux {
     return process.env.TMUX !== undefined
   }
 
-  async getCurrentWindow(): Promise<string | null> {
+  async getCurrentWindow(): Promise<Result<string | null, TmuxError>> {
     if (!(await this.isInsideTmux())) {
-      return null
+      return ok(null)
     }
 
     try {
@@ -159,15 +185,19 @@ export class Tmux {
         '-p',
         '#{window_name}',
       ])
-      return stdout.trim()
-    } catch {
-      return null
+      return ok(stdout.trim())
+    } catch (error) {
+      return err(
+        new TmuxError(
+          `Failed to get current window: ${error instanceof Error ? error.message : String(error)}`,
+        ),
+      )
     }
   }
 
-  async getCurrentSession(): Promise<string | null> {
+  async getCurrentSession(): Promise<Result<string | null, TmuxError>> {
     if (!(await this.isInsideTmux())) {
-      return null
+      return ok(null)
     }
 
     try {
@@ -176,9 +206,13 @@ export class Tmux {
         '-p',
         '#{session_name}',
       ])
-      return stdout.trim()
-    } catch {
-      return null
+      return ok(stdout.trim())
+    } catch (error) {
+      return err(
+        new TmuxError(
+          `Failed to get current session: ${error instanceof Error ? error.message : String(error)}`,
+        ),
+      )
     }
   }
 
@@ -186,7 +220,7 @@ export class Tmux {
     windowName: string,
     keys: string,
     sessionName = this.sessionName,
-  ): Promise<void> {
+  ): Promise<Result<void, TmuxError>> {
     try {
       await execa('tmux', [
         'send-keys',
@@ -195,9 +229,12 @@ export class Tmux {
         keys,
         'Enter',
       ])
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to send keys: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to send keys: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
@@ -206,7 +243,7 @@ export class Tmux {
     oldName: string,
     newName: string,
     sessionName = this.sessionName,
-  ): Promise<void> {
+  ): Promise<Result<void, TmuxError>> {
     try {
       await execa('tmux', [
         'rename-window',
@@ -214,14 +251,17 @@ export class Tmux {
         `${sessionName}:${oldName}`,
         newName,
       ])
+      return ok(undefined)
     } catch (error) {
-      throw new TmuxError(
-        `Failed to rename window: ${error instanceof Error ? error.message : String(error)}`,
+      return err(
+        new TmuxError(
+          `Failed to rename window: ${error instanceof Error ? error.message : String(error)}`,
+        ),
       )
     }
   }
 
-  async listSessions(): Promise<TmuxSession[]> {
+  async listSessions(): Promise<Result<TmuxSession[], TmuxError>> {
     try {
       const { stdout } = await execa('tmux', [
         'list-sessions',
@@ -229,7 +269,7 @@ export class Tmux {
         '#{session_name}:#{session_created}:#{session_windows}:#{session_attached}',
       ])
 
-      return stdout
+      const sessions = stdout
         .split('\n')
         .filter(Boolean)
         .map((line) => {
@@ -241,8 +281,21 @@ export class Tmux {
             attached: attached === '1',
           }
         })
-    } catch {
-      return []
+
+      return ok(sessions)
+    } catch (error) {
+      // If tmux is not running, return empty array
+      if (
+        error instanceof Error &&
+        error.message.includes('no server running')
+      ) {
+        return ok([])
+      }
+      return err(
+        new TmuxError(
+          `Failed to list sessions: ${error instanceof Error ? error.message : String(error)}`,
+        ),
+      )
     }
   }
 }
