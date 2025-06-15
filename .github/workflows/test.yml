@@ -27,15 +27,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            ~/.bun/install/cache
-            ~/.bun/install/global
+            ~/.npm
             node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+            ${{ runner.os }}-npm-
 
-      - run: bun install --frozen-lockfile
+      - run: npm ci
 
       - name: Cache pre-commit
         uses: actions/cache@v4
@@ -75,15 +74,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: |
-            ~/.bun/install/cache
-            ~/.bun/install/global
+            ~/.npm
             node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+            ${{ runner.os }}-npm-
 
-      - run: bun install --frozen-lockfile
+      - run: npm ci
 
       - name: Run tests
-        run: bun run test
+        run: npm run test
