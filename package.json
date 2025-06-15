@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
-    "@tsconfig/node22": "22.0.0",
+    "@tsconfig/node22": "22.0.2",
     "concurrently": "9.1.2",
     "eslint": "8.57.1",
     "prettier": "3.5.3",
