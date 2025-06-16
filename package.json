@@ -1,8 +1,15 @@
 {
-  "name": "node-boilerplate",
+  "name": "vibe",
+  "version": "0.1.0",
+  "description": "A sophisticated wrapper for Claude Code that manages git worktrees and tmux sessions",
   "private": true,
   "type": "module",
+  "bin": {
+    "vibe": "./dist/cli.js"
+  },
   "scripts": {
+    "build": "tsc && echo '#!/usr/bin/env node' | cat - dist/cli.js > temp && mv temp dist/cli.js",
+    "dev": "tsc --watch",
     "lint": "eslint .",
     "format:eslint": "eslint --fix .",
     "format:prettier": "prettier --write .",
@@ -11,9 +18,18 @@
     "test:type": "tsc --noEmit",
     "test:unit": "vitest run"
   },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.0.0",
+    "execa": "^8.0.1",
+    "inquirer": "^9.2.15",
+    "neverthrow": "8.2.0",
+    "ora": "^8.0.1"
+  },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
     "@tsconfig/node22": "22.0.2",
+    "@types/node": "^20.11.24",
     "concurrently": "9.1.2",
     "eslint": "8.57.1",
     "prettier": "3.5.3",

@@ -4,6 +4,9 @@ const config = [
   ...mainConfig,
   ...typescriptConfig,
   {
+    ignores: ['dist/**'],
+  },
+  {
     rules: {
       'no-restricted-imports': [
         'error',

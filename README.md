@@ -1,7 +1,7 @@
 # vibe
 
 > [!WARNING]
-> This project is currently under development and not yet functional.
+> This project is currently under development. Phase 1 (core functionality) has been completed, but the CLI commands are not yet functional.
 
 `vibe` is a sophisticated wrapper for Claude Code that manages git worktrees and tmux sessions for isolated development environments.
 
@@ -59,9 +59,15 @@ cd vibe
 # Install dependencies
 npm install
 
-# Link globally
-npm link
+# Build the TypeScript code
+npm run build
+
+# Link globally (coming in Phase 2)
+# npm link
 ```
+
+> [!NOTE]
+> The CLI is not yet functional. Global installation will be available after Phase 2 implementation.
 
 ## Usage
 
@@ -98,23 +104,23 @@ vibe -R dotfiles start bugfix
 - **Chalk**: Terminal output styling
 - **Ora**: Elegant terminal spinners
 - **Inquirer**: Interactive prompts
-- **Node.js Built-ins**: fs/promises, path, os
+- **Neverthrow**: Functional error handling with Result types
 
 ### Module Structure
 
 ```
 src/
 ├── cli.ts              # Main CLI entry point
-├── commands/
+├── commands/           # Command implementations (Phase 2)
 │   ├── start.ts        # Start command implementation
 │   ├── done.ts         # Done command implementation
 │   └── list.ts         # List command implementation
-├── lib/
-│   ├── git.ts          # Git operations
-│   ├── tmux.ts         # Tmux session management
-│   ├── claude.ts       # Claude Code integration
-│   └── ai.ts           # AI name generation
-├── utils/
+├── lib/                # Core functionality modules
+│   ├── git.ts          # Git operations with Result types
+│   ├── tmux.ts         # Tmux session management with Result types
+│   ├── claude.ts       # Claude Code integration (Phase 3)
+│   └── ai.ts           # AI name generation (Phase 3)
+├── utils/              # Utility modules (Phase 2)
 │   ├── config.ts       # Configuration management
 │   ├── logger.ts       # Logging utilities
 │   └── errors.ts       # Error handling
@@ -122,14 +128,40 @@ src/
     └── index.ts        # TypeScript type definitions
 ```
 
+## Current Implementation Status
+
+### Completed (Phase 1)
+
+The core foundation has been implemented with:
+
+- **CLI Framework**: Basic command structure using Commander.js with `start`, `done`, and `list` commands (not yet functional)
+- **Git Module** (`src/lib/git.ts`): Complete implementation with Result types for:
+  - Worktree creation and removal
+  - Branch management (create, delete, checkout)
+  - Status checking and merge verification
+  - Listing existing worktrees
+  - All operations return `Result<T, GitError>` for type-safe error handling
+- **Tmux Module** (`src/lib/tmux.ts`): Full tmux integration with Result types including:
+  - Session and window management
+  - Window creation, selection, and removal
+  - Detecting current tmux context
+  - Sending commands to windows
+  - All operations return `Result<T, TmuxError>` for consistent error handling
+- **Type Definitions** (`src/types/index.ts`): Complete TypeScript interfaces for all components
+- **Build System**: TypeScript compilation configured with proper module resolution
+
+### Next Steps
+
+The project is ready for Phase 2 implementation, which will make the CLI commands functional by connecting them to the core modules.
+
 ## Development Roadmap
 
 ### Phase 1: Core Functionality ✅
 
 - [x] Project setup and README
-- [ ] Basic CLI structure with Commander.js
-- [ ] Git operations module
-- [ ] Tmux integration module
+- [x] Basic CLI structure with Commander.js
+- [x] Git operations module
+- [x] Tmux integration module
 
 ### Phase 2: Command Implementation
 
