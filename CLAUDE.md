@@ -87,11 +87,24 @@ async createWorktree(name: string): Promise<string> {
 - If commit fails, stage the auto-fixed files and retry
 - Hooks will add newlines at end of files and fix formatting
 
+### ESLint configuration
+
+- Uses `@fohte/eslint-config` base configuration
+- `dist/` directory is ignored from linting
+- Enforces absolute imports - relative imports will error
+
 ### Package management
 
 - Project uses npm as package manager
 - Use `npm install --save-exact <package>` for exact versions
 - Build outputs to `dist/` directory
+
+### TypeScript configuration
+
+- Project extends `@tsconfig/node22` base configuration
+- Uses ESNext modules with bundler resolution for modern tooling
+- Minimal overrides - avoid adding settings already in base config
+- Path aliases configured: `@/*` maps to `src/*`
 
 ### Current implementation status
 
