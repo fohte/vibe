@@ -27,7 +27,7 @@
     "ora": "^8.0.1"
   },
   "devDependencies": {
-    "@fohte/eslint-config": "0.0.4",
+    "@fohte/eslint-config": "0.1.0",
     "@tsconfig/node22": "22.0.2",
     "@types/node": "^20.11.24",
     "concurrently": "9.1.2",
