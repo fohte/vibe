@@ -89,8 +89,6 @@ async createWorktree(name: string): Promise<string> {
 
 ### ESLint configuration
 
-- Uses `@fohte/eslint-config` base configuration
-- `dist/` directory is ignored from linting
 - Enforces absolute imports - relative imports will error
 
 ### Package management
@@ -101,9 +99,6 @@ async createWorktree(name: string): Promise<string> {
 
 ### TypeScript configuration
 
-- Project extends `@tsconfig/node22` base configuration
-- Uses ESNext modules with bundler resolution for modern tooling
-- Minimal overrides - avoid adding settings already in base config
 - Path aliases configured: `@/*` maps to `src/*`
 
 ### Current implementation status
