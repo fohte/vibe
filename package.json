@@ -8,7 +8,7 @@
     "vibe": "./dist/cli.js"
   },
   "scripts": {
-    "build": "tsc && echo '#!/usr/bin/env node' | cat - dist/cli.js > temp && mv temp dist/cli.js",
+    "build": "tsc && node scripts/add-shebang.js dist/cli.js",
     "dev": "tsc --watch",
     "lint": "eslint .",
     "format:eslint": "eslint --fix .",
