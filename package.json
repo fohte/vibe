@@ -29,7 +29,7 @@
   "devDependencies": {
     "@fohte/eslint-config": "0.1.0",
     "@tsconfig/node22": "22.0.2",
-    "@types/node": "^20.11.24",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
     "@typescript-eslint/parser": "7.18.0",
     "concurrently": "9.1.2",
