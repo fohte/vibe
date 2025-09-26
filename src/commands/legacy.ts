@@ -1,12 +1,9 @@
 import { spawn } from 'child_process'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import { resolve } from 'path'
 
 export const legacyCommand = (args: string[]): void => {
-  const scriptPath = resolve(__dirname, '../../scripts/vibe.sh')
+  const projectRoot = process.cwd()
+  const scriptPath = resolve(projectRoot, 'scripts/vibe.sh')
 
   const child = spawn(scriptPath, args, {
     stdio: 'inherit',
