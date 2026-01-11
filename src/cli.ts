@@ -3,6 +3,8 @@ import { readFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 
+import { legacyCommand } from '@/commands/legacy'
+
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
@@ -30,23 +32,26 @@ program
     '-m, --message <message>',
     'AI-generate branch name from task description',
   )
-  .action(async () => {
-    console.log('Start command not implemented yet')
+  .action(() => {
+    const args = process.argv.slice(2)
+    legacyCommand(args)
   })
 
 program
   .command('done [name]')
   .description('Finish and cleanup a vibe session')
   .option('-f, --force', 'force cleanup without merge check')
-  .action(async () => {
-    console.log('Done command not implemented yet')
+  .action(() => {
+    const args = process.argv.slice(2)
+    legacyCommand(args)
   })
 
 program
   .command('list')
   .description('List all active vibe sessions')
-  .action(async () => {
-    console.log('List command not implemented yet')
+  .action(() => {
+    const args = process.argv.slice(2)
+    legacyCommand(args)
   })
 
 program.parse()
